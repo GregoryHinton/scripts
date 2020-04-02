@@ -1,0 +1,6 @@
+#! /bin/sh
+#
+# bye - log out of gnome session
+#
+
+gnome-session-quit --logout --no-prompt

@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# temp - monitor CPU temp and top processes
+
+watch -e "inxi --sensors; echo; top -bn1"

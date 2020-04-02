@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Set hostname so that it updates immediately
+sudo hostname "$@" && sudo sh -c "hostname >/etc/hostname" && HOSTNAME="$(hostname)" exec ${SHELL}

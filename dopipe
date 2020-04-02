@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# dopipe - pipe commands together.
+#          useful on Librem laptops with faulty '|' key.
+
+case $# in
+	0) exit 0 ;;
+	1) eval "$1" ;;
+	2) eval "$1" | eval "$2" ;;
+	3) eval "$1" | eval "$2" | eval "$3" ;;
+	4) eval "$1" | eval "$2" | eval "$3" | eval "$4" ;;
+	5) eval "$1" | eval "$2" | eval "$3" | eval "$4" | eval "$5" ;;
+	*) echo up to 5 commands; exit 1 ;;
+esac
+

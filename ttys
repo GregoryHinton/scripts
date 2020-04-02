@@ -1,0 +1,54 @@
+#! /bin/sh
+#
+# ttys - show which ttys are currently running interactive sessions.
+#
+
+#function debug() {
+#	echo $*  1>&2
+#	return 0
+#}
+
+# "database" constructed from `ps` output
+unset pids;     declare -A pids       # indexed set of pids to make looping easier
+unset has_term; declare -A has_term   # map from pid to "does it have a terminal?"
+unset parentof; declare -A parentof   # map from pid to parent pid
+
+# Build the database of terminal-using processes and their parents.
+# We have to use the '<<<' input redirection instead of a pipeline 
+# because a subprocess spawned in a pipeline would not be able to 
+# modify the database variables in this process.
+(( i = 0 ))
+while read pid ppid; do
+	pids[$i]=${pid}
+	has_term[${pid}]="true"
+	parentof[${pid}]=${ppid}
+	#debug "pids[$i]=${pids[$i]}  has_term[${pid}]=${has_term[${pid}]}  parentof[${pid}]=${parentof[${pid}]}"
+	(( i = i + 1 ))
+done <<< $(ps a -o pid,ppid --no-headers)
+
+# Construct a list of "eldest terminal-using" processes.
+# Needs to be comma-separated to use as argument to `ps -p`.
+pid_list=""
+sep=""
+for p in ${pids[*]}; do
+	ppid=${parentof[$p]}
+	if [[ "${has_term[${ppid}]}" != "true" ]]; then
+		pid_list="${pid_list}${sep}${p}"
+		sep=","
+		#debug "added $p to list"
+	fi
+done
+#debug "pid_list = ${pid_list}"
+
+# Pretty-print info using `ps`.
+# Filter out non-tty and not-yet-logged-in sessions.
+# Hopefully the processes we care about haven't changed 
+# in the few milliseconds since we ran `ps a` above.
+# On those rare occasions when the delay yields incorrect
+# results, just blame the user and run it again.
+cols="tty8,user,comm"
+ps -o ${cols} -p $$ | head -1   # column headers
+ps -o ${cols} -p ${pid_list} --sort tty8 --no-headers | grep '^tty'
+
+# Success
+exit 0

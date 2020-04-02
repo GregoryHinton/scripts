@@ -1,0 +1,24 @@
+#! /bin/sh
+#
+# lswifi - list current wifi links
+#          depends on:
+#            iw (from package iw)
+#            iwlist (from package wireless_tools)
+
+dev="$(iwlist frequency 2>/dev/null | fgrep 'available freq' | head -1 | cut -f1 -d' ')"
+
+if test -z "${dev}"; then
+	echo "no wifi devices found"
+	exit 0
+fi
+
+echo "${dev}:"
+( ip addr show ${dev} | fgrep "link/ether " 
+  ip addr show ${dev} | fgrep "inet" | sed -e 's/ scope .*$//'
+  iw ${dev} link | fgrep "Connected to " | cut -f1-3 -d' '
+  iw ${dev} link | fgrep "SSID:"
+  iwlist ${dev} scanning | fgrep "Frequency:" | sed -e 's/\(y:\)\([0-9]\)/\1 \2/'
+  iw ${dev} link | fgrep "signal:"
+  iw ${dev} link | egrep "RX:|TX:|bitrate:"
+  iwlist ${dev} txpower | fgrep "Current " 
+) | sed -e 's/\t/ /g' -e 's/  */ /g' -e 's/^ */  /' 

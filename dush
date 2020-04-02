@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Show disk usage of current directory, sorted by size
+find . -maxdepth 1 -printf '%P\0' | grep --colour=auto -v -z '^$' | xargs -0 du -sh | sort -rh

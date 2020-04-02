@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# whichpkg
+#
+
+for f in $*; do
+	pacman -Qo $f
+	p="`pacman -Qoq $f 2>/dev/null`"
+	if test -n "$p"; then
+		pacman -Qi "$p"
+	else
+		echo
+	fi
+done

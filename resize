@@ -1,0 +1,25 @@
+#! /bin/sh
+#
+# resize -
+#
+
+dx_dc=9
+dy_dr=19
+xmargin=60
+ymargin=126
+
+case "$1" in
+	"")	cols=120  ;;
+	*)	cols="$1" ;;
+esac
+
+case "$2" in
+	"")	rows=100 ;;
+	*)	rows="$2" ;;
+esac
+
+(( w = ($cols * $dx_dc) + $xmargin ))
+(( h = ($rows * $dy_dr) + $ymargin ))
+
+xdotool getactivewindow windowsize $w $h
+exit $?

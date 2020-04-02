@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# isolate - change systemctl target
+# usage: isolate <target>
+
+target=""
+case "$1" in
+	e|emer*)
+		target="emergency.target"
+		;;
+	g|graph*)
+		target="graphical.target"
+		;;
+	m|multi*)
+		target="multi-user.target"
+		;;
+	r|rescue)
+		target="rescue.target"
+		;;
+	*)
+		target="$1"
+		;;
+esac
+
+sudo systemctl isolate ${target}
