@@ -1,6 +1,8 @@
 #! /bin/sh
 #
-# c - Replace current terminal with a large on in the top-right corner
+# c - Replace the current terminal with a "standard" one
+#     in the top-right corner. Typically used first thing
+#     after logging in to a Gnome session.
 #
 
 self=$(xdotool getactivewindow)  
