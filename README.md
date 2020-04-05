@@ -1,3 +1,3 @@
-# shell-scripts
+# scripts
 
-Shell script files from my ~/bin/scripts directory.
+Executable scripts from my ~/sh directory.
