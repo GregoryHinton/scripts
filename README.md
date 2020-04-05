@@ -1,2 +1,3 @@
 # shell-scripts
-Shell script files from my ~/bin directory.
+
+Shell script files from my ~/bin/scripts directory.
