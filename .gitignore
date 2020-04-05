@@ -1,0 +1,6 @@
+# all backups
+*.bak
+*~
+*.OLD
+*.NEW
+
