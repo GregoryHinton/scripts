@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 #
 # ttys - show which ttys are currently running interactive sessions.
 #

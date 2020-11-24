@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # colors
 # Show foreground/background colors
