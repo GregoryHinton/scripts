@@ -1,3 +1,3 @@
 # scripts
 
-Executable scripts from my ~/sh directory.
+Executable scripts from my ~/bin directory.
