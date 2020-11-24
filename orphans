@@ -1,0 +1,11 @@
+#! /bin/bash
+#
+# orphans - List all orphaned packages,
+#           including those with dependency cycles
+#
+# See <https://bbs.archlinux.org/viewtopic.php?id=255310>
+
+pacman -Qeq |
+        xargs -I PKG -P $(nproc) pactree -lu PKG |
+        sort -u |
+        comm -23 <(pacman -Qq | sort -u) -

@@ -1,0 +1,10 @@
+#! /bin/sh
+
+for x in graphical multi-user rescue emergency; do
+    systemctl status $x.target >/dev/null 2>&1 || continue
+    echo $x
+    exit 0
+done
+echo "unknown"
+exit 1
+

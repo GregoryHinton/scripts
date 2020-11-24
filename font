@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# Set console font to something legible.
+# Use a 'terminus' font if available, 
+# otherwise an 'iso' font.
+# 
+# Because 'setfont' doesn't return an
+# error code, we have to do it this way:
+setfont iso01-12x22
+setfont ter-122b 2>&1 >/dev/null

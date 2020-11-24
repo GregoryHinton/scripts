@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Prevent malicious npm scripts from running
+#
+npm config set ignore-scripts true

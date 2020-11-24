@@ -1,0 +1,3 @@
+#! /bin/sh
+
+systemctl list-unit-files --type=target --all

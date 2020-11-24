@@ -1,0 +1,2 @@
+#! /bin/sh
+man $(find /usr/share/man/man1 -type f | shuf -n 1)

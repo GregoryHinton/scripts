@@ -1,0 +1,10 @@
+#! /bin/sh
+#
+# pid-txt: for each PID show its TXT (executable) file
+#
+
+sudo lsof | \
+    fgrep ' txt ' | \
+    sed -e 's/^[^ ]*  *\([^ ][^ ]*\) .* \([^ ][^ ]*\)$/\1 \2/' | \
+    uniq 
+

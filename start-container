@@ -1,0 +1,6 @@
+#! /bin/sh
+#
+# start-container
+#
+
+unshare -Urpfm --mount-proc --root=/home/greg/archlinux-root env -i bash -l

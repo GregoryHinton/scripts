@@ -1,0 +1,2 @@
+#! /bin/sh
+curl -s https://ipv4.geojs.io/v1/ip https://ipv6.geojs.io/v1/ip

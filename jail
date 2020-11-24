@@ -1,0 +1,19 @@
+#!/bin/sh
+
+unset VOLUMES
+for x in bin etc home lib lib64 sbin usr; do
+    VOLUMES="-v /$x:/$x:ro $VOLUMES"
+done
+
+unset CAP_DROPS
+for x in sys_admin setuid setgid kill net_admin net_raw; do
+    CAP_DROPS="--cap-drop=$x $CAP_DROPS"
+done
+
+ENV_FILE="$(mktemp)"
+env >$ENV_FILE
+
+#docker container run -it --rm --privileged=false $CAP_DROPS --user "$(id -u):$(id -g)" --read-only $VOLUMES -v $(pwd):$(pwd):rw -w $(pwd) --env-file $ENV_FILE -h JAIL --name JAIL my-jail
+docker container run -it --rm --user "$(id -u):$(id -g)" $VOLUMES -v $(pwd):$(pwd):rw -w $(pwd) --env-file $ENV_FILE -h JAIL --name JAIL my-jail
+
+rm $ENV_FILE
