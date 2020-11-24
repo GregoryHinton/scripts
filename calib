@@ -1,5 +1,0 @@
-#! /bin/sh
-
-xdotool getactivewindow getwindowgeometry --shell
-echo "COLUMNS=$COLUMNS"
-echo "LINES=$LINES"
